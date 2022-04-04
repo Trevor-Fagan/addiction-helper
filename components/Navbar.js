@@ -1,40 +1,21 @@
+import React from 'react'
 import { useUser } from "@auth0/nextjs-auth0";
 import Link from "next/link";
-import Navbar from '../components/Navbar.js';
-import Chat from '../components/Chat.js';
-import Head from "next/head";
 
-export default () => {
- const { user, error, isLoading } = useUser();
+const Navbar = () => {
+    const { user, error, isLoading } = useUser();
 
- if (user) { // USER IS AUTHENTICATED
-   return (
-     <div>
-       <Head>
-        <title>AddictionHelper Dashboard</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      </Head>
-
-       <Navbar />
-       <Chat />
-     </div>
-   );
- } else { // USER NOT AUTHENTICATED
-   return(
+  return (
     <div>
-      <Head>
-        <title>AddictionHelper Dashboard</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      </Head>
-      
-      <div class="navbar bg-base-100 absolute">
+      {/* NAVBAR */}
+       <div class="navbar bg-base-100 absolute">
         <div class="navbar-start">
           <div class="dropdown">
             <label tabindex="0" class="btn btn-ghost lg:hidden">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
             </label>
             <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-              <li><a>Item 1</a></li>
+              <li><a>Timers</a></li>
               <li tabindex="0">
                 <a class="justify-between">
                   Parent
@@ -45,10 +26,10 @@ export default () => {
                   <li><a>Submenu 2</a></li>
                 </ul>
               </li>
-              <li><a>Item 3</a></li>
+              <li><a>Feed</a></li>
             </ul>
           </div>
-          <a class="btn btn-ghost normal-case text-xl">AddictionHelper</a>
+          <Link href="/"><a class="btn btn-ghost normal-case text-xl">AddictionHelper</a></Link>
         </div>
         <div class="navbar-center hidden lg:flex">
           <ul class="menu menu-horizontal p-0">
@@ -73,21 +54,15 @@ export default () => {
               <span class="badge badge-xs badge-primary indicator-item"></span>
             </div>
           </button>
-          <a class="btn ml-5" href="/api/auth/login">Get started</a>
+          <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+            <div class="w-10 rounded-full">
+              <Link href="/profile"><img src={user.picture} /></Link>
+            </div>
+          </label>
         </div>
       </div>
+     </div>
+  )
+}
 
-      <div className="hero min-h-screen" style={{backgroundImage: "url(https://api.lorem.space/image/fashion?w=1000&h=800)"}}>
-        <div className="hero-overlay bg-opacity-60"></div>
-        <div className="hero-content text-center text-neutral-content">
-          <div className="max-w-md">
-            <h1 className="mb-5 text-5xl font-bold">Start Fresh</h1>
-            <p className="mb-5"> "Research shows that when someone publicly shares their goals, they have around a 65% chance of success. However, having a specific accountability partner boosts that chance to 95%." -Signature Analytics</p>
-            <a className="btn btn-primary" href="/api/auth/login">Get Started</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
- }
-};
+export default Navbar
